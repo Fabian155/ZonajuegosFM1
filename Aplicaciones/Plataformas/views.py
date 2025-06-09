@@ -36,21 +36,27 @@ def editarPlataforma(request, id):
     editarPLA=Plataforma.objects.get(id=id)
     return render(request, "editarPlataforma.html", {'editarP': editarPLA})
 
-def GuardarEdicion(request):
+def GuardarEdicion2(request):
     id=request.POST["id"]
     nombre=request.POST["nombre"]
-    especialidad=request.POST["especialidad"]
-    experiencia=request.POST["experiencia"]
-    contacto=request.POST["contacto"]
-    nacionalidad=request.POST["nacionalidad"].replace(',','.')
+    fabricante=request.POST["especialidad"]
+    anio_lanzamiento=request.POST["experiencia"]
+    tipo=request.POST["contacto"]
+    region_disponible=request.POST["nacionalidad"].replace(',','.')
 
-    editalo=Instructor.objects.get(id=id)
+    editele=Plataforma.objects.get(id=id)
+    nuevo_logo = request.FILES.get("logo")
+    nuevo_pdf = request.FILES.get("pdf")
 
-    editalo.nombre=nombre
-    editalo.especialidad=especialidad
-    editalo.experiencia=experiencia
-    editalo.contacto=contacto
-    editalo.nacionalidad=nacionalidad
-    editalo.save()
+    editele.nombre=nombre
+    editele.fabricante=fabricante
+    editele.anio_lanzamiento=anio_lanzamiento
+    editele.tipo=tipo
+    editele.region_disponible=region_disponible
+    if nuevo_logo:
+        editele.logo = nuevo_logo
+    if nuevo_pdf:
+        editele.pdf = nuevo_pdf
+    editele.save()
     messages.success(request, "Actualizacion Completa")
     return redirect('/')
