@@ -40,21 +40,21 @@ def editarJuego(request, id):
 
 def GuardarEdicion2(request):
     id=request.POST["id"]
-    nombre=request.POST["nombre"]
-    descripcion=request.POST["descripcion"]
-    dificultad=request.POST["dificultad"]
-    duracion=request.POST["duracion"]
-    lugar=request.POST["lugar"]
-    instructor_id = request.POST['instructor'].replace(',','.')
+    titulo=request.POST["titulo"]
+    genero=request.POST["genero"]
+    desarrollador=request.POST["desarollador"]
+    fecha_lanzamiento =request.POST["fecha_lanzamiento"]
+    clasificacion=request.POST["clasificacion"]
+    plataforma_id = request.POST['plataforma'].replace(',','.')
 
-    editalos=Curso.objects.get(id=id)
+    editalos=Videojuego.objects.get(id=id)
 
-    editalos.nombre=nombre
-    editalos.descripcion=descripcion
-    editalos.dificultad=dificultad
-    editalos.duracion=duracion
-    editalos.lugar=lugar
-    editalos.instructor = Instructor.objects.get(id=instructor_id)
+    editalos.titulo=titulo
+    editalos.genero=genero
+    editalos.desarrollador=desarrollador
+    editalos.fecha_lanzamiento=fecha_lanzamiento
+    editalos.clasificacion=clasificacion
+    editalos.plataforma = Plataforma.objects.get(id=plataforma_id)
     editalos.save()
     messages.success(request, "Actualizacion Completa")
     return redirect('/')
