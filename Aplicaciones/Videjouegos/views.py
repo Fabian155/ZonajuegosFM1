@@ -23,7 +23,11 @@ def GuardarJ(request):
     clasificacion=request.POST["clasificacion"]
     plataforma_id = request.POST['plataforma']
     plataforma = Plataforma.objects.get(id=plataforma_id)
-    nuevaPLata=Videojuego.objects.create(titulo=titulo, genero=genero, desarrollador=desarrollador, fecha_lanzamiento=fecha_lanzamiento, clasificacion=clasificacion, plataforma=plataforma)
+
+    logo=request.FILES.get("logo")
+    pdf = request.FILES.get("pdf")
+
+    nuevaPLata=Videojuego.objects.create(titulo=titulo, genero=genero, desarrollador=desarrollador, fecha_lanzamiento=fecha_lanzamiento, clasificacion=clasificacion, plataforma=plataforma, logo=logo, pdf=pdf)
     messages.success(request, " GUARDADO CORRECTA MENTE")
     return redirect('/')
 
@@ -48,6 +52,8 @@ def GuardarEdicion1(request):
     plataforma_id = request.POST['plataforma'].replace(',','.')
 
     editalos=Videojuego.objects.get(id=id)
+    nuevo_logo = request.FILES.get("logo")
+    nuevo_pdf = request.FILES.get("pdf")
 
     editalos.titulo=titulo
     editalos.genero=genero
@@ -55,6 +61,10 @@ def GuardarEdicion1(request):
     editalos.fecha_lanzamiento=fecha_lanzamiento
     editalos.clasificacion=clasificacion
     editalos.plataforma = Plataforma.objects.get(id=plataforma_id)
+    if nuevo_logo:
+        editalos.logo = nuevo_logo
+    if nuevo_pdf:
+        editalos.pdf = nuevo_pdf
     editalos.save()
     messages.success(request, "Actualizacion Completa")
     return redirect('/')
