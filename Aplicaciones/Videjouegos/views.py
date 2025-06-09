@@ -8,7 +8,7 @@ import os
 # ✅ Listar videojuegos
 def listarVideojuegos(request):
     listaJuegos = Videojuego.objects.select_related('plataforma').all()  # Optimización con select_related
-    return render(request, "Videojuegos/inicioVideojuego.html", {'Juegos': listaJuegos})
+    return render(request, "Videojuegos/inicio1.html", {'Juegos': listaJuegos})
 
 # ✅ Formulario para agregar un nuevo videojuego
 def nuevoVideojuego(request):
