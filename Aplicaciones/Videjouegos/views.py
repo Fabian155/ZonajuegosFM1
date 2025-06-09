@@ -33,10 +33,10 @@ def EliminarJuego(request, id):
     return redirect('/')
 
 
-def editaCurso(request, id):
-    editarCur=get_object_or_404(Curso, id=id)
-    instructores=Instructor.objects.all()
-    return render(request, "editaCurso.html", {'editaC': editarCur, 'instructores': instructores})
+def editarJuego(request, id):
+    editalJuego=get_object_or_404(Videojuego, id=id)
+    plataformas=Plataforma.objects.all()
+    return render(request, "editarJuego.html", {'editarJ': editalJuego, 'plataformas': plataformas})
 
 def GuardarEdicion2(request):
     id=request.POST["id"]
