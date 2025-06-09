@@ -1,0 +1,54 @@
+{% extends "plantilla.html" %}
+{%block contenido %}
+
+<div class="col-md-3"></div>
+<div class="col-md-6"></div>
+<h1>EDITAR LA RESERVA</h1>
+<form action="{% url 'GuardarEdicion1' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <input type="hidden" name="id" value="{{editarJ.id}}"></input>
+    <label for="">Titulo:</label><br>
+    <input class="form-control" type="text" name="titulo" id="titulo" value="{{editarJ.titulo}}"> <br>
+    <label for="">Genero:</label><br>
+    <input class="form-control" type="text" name="genero" id="genero" value="{{editarJ.genero}}">  <br>
+    <label for="">Desarollador:</label><br>
+    <input class="form-control" type="text" name="desarollador" id="desarollador" value="{{editarJ.desarollador}}">  <br>
+    <label for="">Fecha de Lanzamiento:</label><br>
+    <input class="form-control" type="text" name="fecha_lanzamiento" id="fecha_lanzamiento" value="{{editarJ.fecha_lanzamiento}}">  <br>
+    <label for="">Clasificacion:</label><br>
+    <input class="form-control" type="text" name="clasificacion" id="clasificacion" value="{{editarJ.clasficicacion}}">  <br>
+
+    <label for="logo">Logotipo:</label><br>
+    {% if editaReserva.logo %}
+    <img src="{{ editaR.logo.url }}" alt="Logo actual" width="120"><br><br>
+    {% else %}
+    <small>No hay logotipo cargado</small><br><br>
+    {% endif %}
+    <!-- Subir nuevo logotipo -->
+    <input class="form-control" type="file" name="logo" id="logo">
+    <br>
+
+    <!-- Archivo PDF actual -->
+    <label for="pdf">Archivo PDF:</label><br>
+    {% if editaReserva.pdf %}
+    <a href="{{ editaReserva.pdf.url }}" target="_blank">Ver PDF actual</a><br><br>
+    {% else %}
+    <small>No hay archivo PDF cargado</small><br><br>
+    {% endif %}
+    <!-- Subir nuevo archivo PDF -->
+    <input class="form-control" type="file" name="pdf" id="pdf" accept="application/pdf">
+    <br>
+    
+    <label>Plataformas Disponibles:</label><br>
+    <select name="plataforma">
+        {% for plataforma in plataforma %}
+            <option value="{{ plataforma.id }}" {% if plataforma.id == editarJ.plataforma.id %}selected{% endif %}>{{ plataforma.nombre }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <button class="btn btn-success" type="submit">GUARDAR</button>
+    <a class="btn btn-outline-danger" href="/">Cancelar</a>
+
+</form>
+{% endblock %}
