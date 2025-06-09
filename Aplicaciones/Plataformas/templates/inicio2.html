@@ -1,0 +1,103 @@
+{% extends "plantilla.html" %}
+{% block contenido %}
+<h1>LISTADO DE CURSOS</h1> <br>
+<a href="NuevaPlataforma" class="btn btn-primary">
+    AGREGAR UNA PLATAFORMA
+</a>
+<br><br>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>  
+
+
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>NOMBRE</td>
+            <td>FABRICANTE</td>
+            <td>AÑO DE LANZAMIENTO</td>
+            <td>TIPO</td>
+            <td>REGION DISPONIBLE</td>
+            <th>FOTO DE LA CONSOLA</th>
+            <th>ARCHIVO PDF DE SUS CAPACIDADES</th>
+        </tr>
+    </thead>
+        <tbody>
+            {%for Plataformas in  Plataformas %}
+                <tr>
+                    <td>{{Plataformas.id}}</td>
+                    <td>{{Plataformas.nombre}}</td>
+                    <td>{{Plataformas.fabricante}}</td>
+                    <td>{{Plataformas.anio_lanzamiento}}</td>
+                    <td>{{Plataformas.tipo}}</td>
+                    <td>{{Plataformas.region_disponible}}</td>
+                    <td>
+                        {% if Plataformas.logo %}
+                        <img src="{{Plataformas.logo.url}}" height="80px" alt="">
+                        {% else %}
+                        Ninguna
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if Plataformas.pdf %}
+                        <a href="{{ Plataformas.pdf.url }}" target="_blank">Ver PDF</a>
+                        {% else %}
+                            ninguno
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'editarPlataforma' Plataformas.id %}" class="btn btn-outline-warning">
+                            <i class="fa fa-pen"></i>
+                        </a>
+                        <a href="#" onclick="confirmarEliminacion({{ Plataformas.id }})" class="btn btn-outline-danger"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+</table>
+
+
+<!-- Incluir SweetAlert2 desde CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    // Función para mostrar el mensaje de confirmación antes de eliminar
+    function confirmarEliminacion(id) {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success",
+                    timer: 1500,
+                    showConfirmButton: false
+                }).then(() => {
+                    // Redirige a la URL de eliminación después de mostrar el mensaje
+                    window.location.href = "EliminarP/" + id;
+                });
+            }
+        });
+    }
+</script>
+
+    {% if messages %}
+            {% for mensaje in messages %}
+            <script>
+                Swal.fire({
+                    title: "CONFIRMACION",
+                    text: "{{mensaje}}",
+                    icon: "sucess"
+                })
+            </scrip>
+            {% endfor %}
+    {% endif %} 
+
+<br><br><br><br><br><br><br><br><br>
+{% endblock %}

@@ -12,7 +12,7 @@ def inicio2(request):
 def nuevaPlataforma(request):
     return render(request, "nuevaPlataforma.html")
 
-def Guardar(request):
+def GuardarP(request):
     nombre=request.POST["nombre"]
     fabricante=request.POST["especialidad"]
     anio_lanzamiento=request.POST["experiencia"]
