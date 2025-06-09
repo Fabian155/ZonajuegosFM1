@@ -32,9 +32,9 @@ def EliminarPlataforma(request, id):
     return redirect('/')
 
 
-def editaInstructor(request, id):
-    editarINS=Instructor.objects.get(id=id)
-    return render(request, "editaInstructor.html", {'editarI': editarINS})
+def editarPlataforma(request, id):
+    editarPLA=Plataforma.objects.get(id=id)
+    return render(request, "editarPlataforma.html", {'editarP': editarPLA})
 
 def GuardarEdicion(request):
     id=request.POST["id"]
