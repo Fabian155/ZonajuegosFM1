@@ -12,5 +12,17 @@ class Videojuego(models.Model):
     clasificacion = models.TextField()
     plataforma = models.ForeignKey(Plataforma, on_delete=models.CASCADE)
 
+    logo = models.FileField(
+        upload_to='cargos',  # Carpeta dentro de media/ donde se guarda el logo
+        null=True,            # Permite que el campo quede vacío (nulo)
+        blank=True            # Permite que el formulario lo deje vacío
+    )
+
+    pdf = models.FileField(
+        upload_to='pdfs',  # Carpeta dentro de media/ donde se guarda el PDF
+        null=True,                # Permite campo vacío
+        blank=True
+    )
+
     def __str__(self):
         return self.titulo
