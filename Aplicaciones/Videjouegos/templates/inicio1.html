@@ -17,6 +17,8 @@
             <td>DESAROLLADOR</td>
             <td>FECHA DE LANZAMIENTO</td>
             <td>CLASIFICACION</td>
+            <th>FOTO DEL JUEGO</th>
+            <th>ARCHIVO PDF CON LOS COMPONENTES</th>
         </tr>
     </thead>
         <tbody>
@@ -28,6 +30,20 @@
                     <td>{{Juegos.desarollador}}</td>
                     <td>{{Juegos.fecha_lanzamiento}}</td>
                     <td>{{Juegos.clasificacion}}</td>
+                    <td>
+                        {% if Reservas.logo %}
+                        <img src="{{Reservas.logo.url}}" height="80px" alt="">
+                        {% else %}
+                        Ninguna
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if Reservas.pdf %}
+                        <a href="{{ Reservas.pdf.url }}" target="_blank">Ver PDF</a>
+                        {% else %}
+                            ninguno
+                        {% endif %}
+                    </td>
                     <td>
                         <a href="{% url 'editarJuego' Juegos.id %}" class="btn btn-outline-warning">
                             <i class="fa fa-pen"></i>
