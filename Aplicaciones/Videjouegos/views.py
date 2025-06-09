@@ -38,7 +38,7 @@ def editarJuego(request, id):
     plataformas=Plataforma.objects.all()
     return render(request, "editarJuego.html", {'editarJ': editalJuego, 'plataformas': plataformas})
 
-def GuardarEdicion2(request):
+def GuardarEdicion1(request):
     id=request.POST["id"]
     titulo=request.POST["titulo"]
     genero=request.POST["genero"]
