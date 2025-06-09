@@ -26,9 +26,9 @@ def Guardar(request):
     messages.success(request, "INSTRUCTOR GUARDADO")
     return redirect('/')
 
-def EliminarInstructor(request, id):
-    Eliminar=Instructor.objects.get(id=id)
-    Eliminar.delete()
+def EliminarPlataforma(request, id):
+    EliminarP=Plataforma.objects.get(id=id)
+    EliminarP.delete()
     return redirect('/')
 
 
