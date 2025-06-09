@@ -129,3 +129,5 @@ MEDIA_URL='/media/'
 
 #va la sistema opetrivo y luega entra a la carpeta media, Basedir=ruta fidica dodne se esta guardando el proyecto
 MEDIA_ROOT=(os.path.join(BASE_DIR,'DeportivosFM/media/'))
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
