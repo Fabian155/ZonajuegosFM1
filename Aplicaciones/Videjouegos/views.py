@@ -27,9 +27,9 @@ def GuardarJ(request):
     messages.success(request, " GUARDADO CORRECTA MENTE")
     return redirect('/')
 
-def EliminarCurso(request, id):
-    EliminarC=Curso.objects.get(id=id)
-    EliminarC.delete()
+def EliminarJuego(request, id):
+    EliminarJ=Videojuego.objects.get(id=id)
+    EliminarJ.delete()
     return redirect('/')
 
 
