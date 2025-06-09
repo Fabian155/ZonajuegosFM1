@@ -11,9 +11,9 @@ def inicio1(request):
     return render(request, "inicio1.html", {'Juegos': listaJuegos})
 
 
-def nuevoCurso(request):
-    instructores=Instructor.objects.all()
-    return render(request, "nuevoCurso.html", {'instructores': instructores})
+def NuevoJuego(request):
+    plataformas=Plataforma.objects.all()
+    return render(request, "NuevoJuego.html", {'plataformas': plataformas})
 
 def GuardarC(request):
     nombre=request.POST["nombre"]
