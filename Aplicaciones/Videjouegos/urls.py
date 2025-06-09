@@ -1,11 +1,11 @@
 from django.urls import path
-from. import views
+from . import views  
 
 urlpatterns = [
-    path('', views.inicio1, name='inicioJ'),
-    path('NuevoJuego', views.NuevoJuego, name='NuevoJuego'), 
-    path('GuardarJ', views.GuardarJ), 
-    path('EliminarJ/<id>', views.EliminarJuego),
-    path('editarJ/<id>', views.editarJuego),
-    path('GuardarEdicion1', views.GuardarEdicion1),
+    path('', views.listarVideojuegos, name='listarVideojuegos'),  
+    path('nuevoVideojuego/', views.nuevoVideojuego, name='nuevoVideojuego'),  
+    path('guardarVideojuego/', views.guardarVideojuego, name='guardarVideojuego'),  
+    path('eliminarVideojuego/<int:id>/', views.eliminarVideojuego, name='eliminarVideojuego'),  
+    path('editarVideojuego/<int:id>/', views.editarVideojuego, name='editarVideojuego'),  
+    path('procesarEdicionVideojuego/<int:id>/', views.procesarEdicionVideojuego, name='procesarEdicionVideojuego'),  
 ]
