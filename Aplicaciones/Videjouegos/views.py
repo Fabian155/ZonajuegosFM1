@@ -8,12 +8,12 @@ import os
 # ✅ Listar videojuegos
 def listarVideojuegos(request):
     listaJuegos = Videojuego.objects.select_related('plataforma').all()  # Optimización con select_related
-    return render(request, "Videojuegos/inicio1.html", {'Juegos': listaJuegos})
+    return render(request, "Videojuego/inicio1.html", {'Juegos': listaJuegos})
 
 # ✅ Formulario para agregar un nuevo videojuego
 def nuevoVideojuego(request):
     plataformas = Plataforma.objects.all()  # Obtener todas las plataformas disponibles
-    return render(request, "Videojuegos/nuevoVideojuego.html", {'plataformas': plataformas})
+    return render(request, "Videojuego/NuevoJuego.html", {'plataformas': plataformas})
 
 # ✅ Guardar videojuego en la base de datos
 def guardarVideojuego(request):
@@ -63,7 +63,7 @@ def eliminarVideojuego(request, id):
 def editarVideojuego(request, id):
     videojuego = Videojuego.objects.get(id=id)
     plataformas = Plataforma.objects.all()  # Obtener todas las plataformas disponibles
-    return render(request, "Videojuegos/editarVideojuego.html", {'videojuego': videojuego, 'plataformas': plataformas})
+    return render(request, "Videojuego/editarVideojuego.html", {'videojuego': videojuego, 'plataformas': plataformas})
 
 # ✅ Procesar edición y actualizar en la BD
 def procesarEdicionVideojuego(request, id):

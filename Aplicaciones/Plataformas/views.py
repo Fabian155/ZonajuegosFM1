@@ -7,11 +7,11 @@ import os
 # ✅ Listar plataformas
 def listarPlataformas(request):
     listaPlataforma = Plataforma.objects.all()  # Obtiene todas las plataformas
-    return render(request, "Plataformas/inicio2.html", {'plataformas': listaPlataforma})
+    return render(request, "Plataforma/inicio2.html", {'plataformas': listaPlataforma})
 
 # ✅ Formulario para agregar una nueva plataforma
 def nuevaPlataforma(request):
-    return render(request, "Plataformas/nuevaPlataforma.html")
+    return render(request, "Plataforma/nuevaPlataforma.html")
 
 # ✅ Guardar plataforma en la base de datos
 def guardarPlataforma(request):
@@ -57,7 +57,7 @@ def eliminarPlataforma(request, id):
 # ✅ Formulario de edición de plataforma
 def editarPlataforma(request, id):
     plataforma = Plataforma.objects.get(id=id)
-    return render(request, "Plataformas/editarPlataforma.html", {'plataforma': plataforma})
+    return render(request, "Plataforma/editarPlataforma.html", {'plataforma': plataforma})
 
 # ✅ Procesar edición y actualizar en la BD
 def procesarEdicionPlataforma(request, id):

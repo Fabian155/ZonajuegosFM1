@@ -1,0 +1,25 @@
+{% extends "plantilla.html" %}
+{% block contenido %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inicio | Zona Juegos</title>
+
+</head>
+
+<body class="bg-light text-center">
+    
+    <h1 class="mt-5">Bienvenido a Zona Juegos</h1>
+    <p class="lead">Explora videojuegos y plataformas en nuestro sistema.</p>
+
+    <div class="mt-4">
+        <a href="/Videojouegos" class="btn btn-primary">Ver Videojuegos</a>
+        <a href="/Plataformas" class="btn btn-primary">Ver Plataformas</a>
+    </div>
+
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,154 @@
+{% extends "plantilla.html" %}
+{% load static %}
+{% block contenido %}
+  <div class="row mt-4">
+      <div class="col-md-3"></div>
+      <div class="col-md-6 bg-light p-4 rounded shadow">
+          <h1 class="text-center mb-4" style="color: black;">Agregar Nuevo Videojuego</h1>
+
+          <form action="{% url 'guardarVideojuego' %}" id="frm_nuevoJuego" enctype="multipart/form-data" method="post">
+              {% csrf_token %}
+
+              <div class="mb-3">
+                  <label for="titulo" class="form-label">Título del Videojuego</label>
+                  <input type="text" class="form-control" name="titulo" id="titulo" placeholder="Ingrese el título">
+              </div>
+
+              <div class="mb-3">
+                  <label for="genero" class="form-label">Género</label>
+                  <input type="text" class="form-control" name="genero" id="genero" placeholder="Ingrese el género">
+              </div>
+
+              <div class="mb-3">
+                  <label for="desarrollador" class="form-label">Desarrollador</label>
+                  <input type="text" class="form-control" name="desarrollador" id="desarrollador" placeholder="Ingrese el desarrollador">
+              </div>
+
+              <div class="mb-3">
+                  <label for="fecha_lanzamiento" class="form-label">Fecha de Lanzamiento</label>
+                  <input type="date" class="form-control" name="fecha_lanzamiento" id="fecha_lanzamiento">
+              </div>
+
+              <div class="mb-3">
+                  <label for="clasificacion" class="form-label">Clasificación</label>
+                  <input type="text" class="form-control" name="clasificacion" id="clasificacion" placeholder="Ingrese clasificación por edad">
+              </div>
+
+              <div class="mb-3">
+                  <label for="plataforma" class="form-label">Plataforma</label>
+                  <select class="form-control" name="plataforma" id="plataforma">
+                      <option value="">Seleccione una plataforma</option>
+                      {% for plataforma in plataformas %}
+                          <option value="{{ plataforma.id }}">{{ plataforma.nombre }}</option>
+                      {% endfor %}
+                  </select>
+              </div>
+
+              <div class="mb-3">
+                  <label for="logo" class="form-label">Imagen del Videojuego</label>
+                  <input type="file" class="form-control" name="logo" id="logo" accept="image/*">
+              </div>
+
+              <div class="mb-3">
+                  <label for="pdf" class="form-label">Archivo PDF con Información</label>
+                  <input type="file" class="form-control" name="pdf" id="pdf" accept="application/pdf">
+              </div>
+
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                  <a href="{% url 'listarVideojuegos' %}" class="btn btn-outline-danger me-md-2">Cancelar <i class="fa fa-times"></i></a>
+                  <button type="submit" class="btn btn-outline-success">Guardar Videojuego <i class="fa-solid fa-floppy-disk"></i></button>
+              </div>
+          </form>
+      </div>
+      <div class="col-md-3"></div>
+  </div>
+
+<script>
+    $("#frm_nuevoJuego").validate({
+        rules:{
+            "titulo":{
+                required:true,
+                minlength:3,
+                maxlength:100
+            },
+            "genero":{
+                required:true
+            },
+            "desarrollador":{
+                required:true,
+                minlength:3,
+                maxlength:50
+            },
+            "fecha_lanzamiento":{
+                required:true,
+                date:true
+            },
+            "clasificacion":{
+                required:true,
+                minlength:3,
+                maxlength:20
+            },
+            "logo":{
+                required:true,
+                extension:"jpg|jpeg|png|gif"
+            },
+            "pdf":{
+                required:true,
+                extension:"pdf"
+            }
+        },
+        messages:{
+            "titulo":{
+                required:"El título es requerido.",
+                minlength:"Debe tener al menos 3 caracteres.",
+                maxlength:"No puede superar los 100 caracteres."
+            },
+            "genero":{
+                required:"El género es requerido."
+            },
+            "desarrollador":{
+                required:"El desarrollador es requerido.",
+                minlength:"Debe tener al menos 3 caracteres.",
+                maxlength:"No puede superar los 50 caracteres."
+            },
+            "fecha_lanzamiento":{
+                required: "La fecha de lanzamiento es requerida.",
+                date: "Debe ingresar una fecha válida."
+            },
+            "clasificacion":{
+                required:"La clasificación es requerida.",
+                minlength:"Debe tener al menos 3 caracteres.",
+                maxlength:"No puede superar los 20 caracteres."
+            },
+            "logo":{
+                required:"Debe subir una imagen del videojuego.",
+                extension:"Solo se permiten imágenes: jpg, jpeg, png, gif."
+            },
+            "pdf":{
+                required:"Debe subir el archivo en formato PDF.",
+                extension:"Solo se permite formato PDF."
+            }
+        }
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $("#logo").fileinput({ 
+            language: "es",
+            allowedFileExtensions: ["jpg", "jpeg", "png"],
+            showUpload: false, 
+            dropZoneEnabled: true, 
+            maxFileSize: 2000, 
+            showPreview: true, 
+            browseLabel: "Seleccionar imagen",
+            removeLabel: "Eliminar",
+            initialCaption: "Arrastra y suelta la imagen aquí",
+            showRemove: true, 
+            showZoom: true, 
+            showDrag: true 
+        });
+    });
+</script>
+
+{% endblock %}

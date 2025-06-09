@@ -1,0 +1,111 @@
+{% extends "plantilla.html" %}
+{% load static %}
+{% block contenido %}
+
+<script>
+    function confirmarEliminacion(id) {
+        Swal.fire({
+            title: "CONFIRMACIÓN",
+            text: "¿Está seguro de eliminar este videojuego?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, eliminar",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "eliminarVideojuego/" + id;
+            }
+        });
+    }
+</script>
+
+<br>
+<h1 class="text-center" style="color: black;">Listado de Videojuegos</h1>
+<hr>
+
+<div class="row">
+    <div class="text-end">
+        <a href="nuevoVideojuego" class="btn btn-outline-success text-right" style="color: black;">
+            Agregar Videojuego <i class="fa fa-plus"></i>
+        </a>
+    </div>
+</div>
+<br>
+
+<table class="table table-bordered table-striped table-hover" id="tbl_videojuegos">
+    <thead>
+        <tr class="bg-info">
+            <th>ID</th>
+            <th>TÍTULO</th>            
+            <th>GÉNERO</th>
+            <th>DESARROLLADOR</th>
+            <th>FECHA DE LANZAMIENTO</th>
+            <th>CLASIFICACIÓN</th>
+            <th>LOGO</th>            
+            <th>ARCHIVO PDF</th>
+            <th>ACCIONES</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for juego in videojuegos %}
+            <tr>
+                <td>{{ juego.id }}</td>
+                <td>{{ juego.titulo }}</td>    
+                <td>{{ juego.genero }}</td>
+                <td>{{ juego.desarrollador }}</td>
+                <td>{{ juego.fecha_lanzamiento }}</td>
+                <td>{{ juego.clasificacion }}</td>
+                <td>
+                    {% if juego.logo %}
+                        <img src="{{ juego.logo.url }}" width="80px" height="80px" alt="Logo">
+                    {% else %}
+                        Ninguna Imagen
+                    {% endif %}
+                </td>
+                <td>
+                    {% if juego.pdf %}
+                        <div style="height: 100%; width: 100%;">
+                            <iframe src="{{ juego.pdf.url }}" frameborder="0"></iframe>
+                        </div>
+                        <a href="{{ juego.pdf.url }}" download class="btn btn-sm btn-success mb-2">Descargar PDF</a>
+                        <a href="{{ juego.pdf.url }}" class="btn btn-sm btn-success mb-2" target="_blank">Ver PDF</a>
+                    {% else %}
+                        No tiene archivo PDF
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="editarVideojuego/{{ juego.id }}" class="btn btn-outline-warning">
+                        <i class="fa fa-pen"></i>
+                    </a>
+                    <a href="#" onclick="confirmarEliminacion('{{ juego.id }}')" class="btn btn-outline-danger">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function () {
+        $('#tbl_videojuegos').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                { extend: 'copy', text: 'Copiar' },  
+                { extend: 'csv', text: 'CSV' },      
+                { extend: 'excel', text: 'Excel' },  
+                { extend: 'pdf', text: 'PDF' },      
+                { extend: 'print', text: 'Imprimir' } 
+            ],
+            pageLength: 10,
+            language: {
+                url: "https://cdn.datatables.net/plug-ins/1.13.7/i18n/Spanish.json"
+            }
+        });
+    });
+</script>
+
+<br><br><br><br><br><br>
+{% endblock %}
