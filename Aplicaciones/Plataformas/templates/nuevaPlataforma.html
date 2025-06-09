@@ -1,0 +1,95 @@
+{% extends "plantilla.html" %}
+{% block contenido %}
+
+<h1>AGREGA OTRA PLATAFORMA</h1>
+<form action="GuardarP" method="post" id="frm_nuevaPlataforma" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <label for="">Nombre:</label><br>
+    <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre"> <br>
+    <label for="">Fabricante:</label><br>
+    <input class="form-control" type="text" name="fabricante" id="fabricante" placeholder="Ingrese el fabricante"> <br>
+    <label for="">Año de Lanzamiento:</label><br>
+    <input class="form-control" type="text" name="anio_lanzamiento" id="anio_lanzamiento" placeholder="Ingrese quien lo creo"> <br>
+    <label for="">Tipo:</label><br>
+    <input class="form-control" type="text" name="tipo" id="tipo" placeholder="Ingrese la fecha"> <br>
+    <label for="">Region Disponible:</label><br>
+    <input class="form-control" type="text" name="region_disponible" id="region_disponible" placeholder="Ingrese para que edad es"> <br>
+
+    <label for="">Imagen de la consola:</label><br>
+    <input class="form-control" type="file" name="logo" id="logo" accept="image/*" placeholder="Sleciones una imagen"><br>
+
+    <label for="pdf">Archivo PDF de las capacidades:</label><br>
+    <input class="form-control" type="file" name="pdf" id="pdf" accept="application/pdf"><br>
+    </select><br><br>
+
+    <button class="btn btn-success" type="submit">GUARDAR</button> <br><br>
+    <a class="btn btn-outline-danger" href="/">CANCELAR</a> <br><br>
+
+</form>
+
+<script>
+    $("#frm_nuevoJuego").validate({
+        rules: {
+
+            "titulo": {
+                required: true,
+                minlength: 5, // maxlenth cunrta los caracteres 
+                maxlength: 15,
+            },
+
+            "genero": {
+                required: true
+            },
+
+            "desarollador": {
+                required: true
+            },
+
+            "fecha_lanzamiento": {
+                required: true
+            },
+
+            "clasificacion": {
+                required: true
+
+        },
+        messages: {
+            "titulo": {
+                required: "Campo Obligatorio",
+                minlength: "ingresse bien el nombre   ", 
+                maxlength: "Tampoco tan largo el nombre ",
+            },
+            "genero": {
+                required: "Ingrese que genero es"
+            },
+
+            "desarollador": {
+                required: "Ingrese quien creo el juego"
+            },
+
+            "fecha_lanzamiento": {
+                required: "Ingrese la fecha que se lanzo"
+            },
+
+            "clasificacion": {
+                required: "Ingrese sueldo",
+
+            }
+            
+        }
+    });
+
+    
+        $("#logo").fileinput({
+            //language: "es",
+            allowedFileExtensions: ["png|jpg|jpeg"],
+            showCaption: false,
+            dropZoneEnabled: true,
+            showClose: false
+    });
+    </script>
+
+
+</script>
+{% endblock %}
