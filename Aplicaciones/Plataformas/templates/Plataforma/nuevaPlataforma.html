@@ -131,22 +131,22 @@
 </script>
 
 <script>
-    $(document).ready(function() {
-        $("#logo").fileinput({
-            language: "es",
-            allowedFileExtensions: ["jpg", "jpeg", "png"],
-            showUpload: false, 
-            dropZoneEnabled: true, 
-            maxFileSize: 2000, 
-            showPreview: true, 
-            browseLabel: "Seleccionar imagen",
-            removeLabel: "Eliminar",
-            initialCaption: "Arrastra y suelta la imagen aquí",
-            showRemove: true, 
-            showZoom: true, 
-            showDrag: true 
-        });
+    $("#logo").fileinput({
+        theme: "bootstrap5",  // <-- importante si estás usando Bootstrap 5
+        language: "es",
+        allowedFileExtensions: ["jpg", "jpeg", "png"],
+        showUpload: false,
+        dropZoneEnabled: true,
+        maxFileSize: 2000,
+        showPreview: true,
+        browseLabel: "Seleccionar imagen",
+        removeLabel: "Eliminar",
+        initialCaption: "Arrastra y suelta la imagen aquí",
+        showRemove: true,
+        showZoom: true,
+        showDrag: true
     });
+    
 </script>
 
 {% endblock %}
