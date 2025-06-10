@@ -1,3 +1,4 @@
+{% block extra_scripts %}
 {% extends "plantilla.html" %}
 {% load static %}
 {% block contenido %}
@@ -90,26 +91,15 @@
 
 <script>
     $(document).ready(function () {
-        let id = '#tbl_plataformas';
-        if ($.fn.DataTable.isDataTable(id)) {
-            $(id).DataTable().clear().destroy();
-        }
-
-        $(id).DataTable({
+        $('#tbl_videojuegos').DataTable({
             paging: true,
             searching: true,
             dom: '<"row mb-3"<"col-md-6"B><"col-md-6 text-end"f>>' +
                 '<"row"<"col-12"tr>>' +
                 '<"row mt-3"<"col-md-5"i><"col-md-7"p>>',
-            buttons: [
-                { extend: 'copy', text: 'Copiar' },  
-                { extend: 'csv', text: 'CSV' },      
-                { extend: 'excel', text: 'Excel' },  
-                { extend: 'pdf', text: 'PDF' },      
-                { extend: 'print', text: 'Imprimir' } 
-            ],
+            buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
             language: {
-                url: 'https://cdn.datatables.net/plug-ins/1.13.7/i18n/Spanish.json'
+                url: 'https://cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
             }
         });
     });
