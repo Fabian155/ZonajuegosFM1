@@ -1,95 +1,152 @@
 {% extends "plantilla.html" %}
+{% load static %}
 {% block contenido %}
+  <div class="row mt-4">
+      <div class="col-md-3"></div>
+      <div class="col-md-6 bg-light p-4 rounded shadow">
+          <h1 class="text-center mb-4" style="color: black;">Nueva Plataforma</h1>
 
-<h1>AGREGA OTRA PLATAFORMA</h1>
-<form action="GuardarP" method="post" id="frm_nuevaPlataforma" enctype="multipart/form-data">
-    {% csrf_token %}
-    
-    <label for="">Nombre:</label><br>
-    <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre"> <br>
-    <label for="">Fabricante:</label><br>
-    <input class="form-control" type="text" name="fabricante" id="fabricante" placeholder="Ingrese el fabricante"> <br>
-    <label for="">Año de Lanzamiento:</label><br>
-    <input class="form-control" type="text" name="anio_lanzamiento" id="anio_lanzamiento" placeholder="Ingrese quien lo creo"> <br>
-    <label for="">Tipo:</label><br>
-    <input class="form-control" type="text" name="tipo" id="tipo" placeholder="Ingrese la fecha"> <br>
-    <label for="">Region Disponible:</label><br>
-    <input class="form-control" type="text" name="region_disponible" id="region_disponible" placeholder="Ingrese para que edad es"> <br>
+          <form action="{% url 'guardarPlataforma' %}" id="formGuardarPlataforma" enctype="multipart/form-data" method="post">
+              {% csrf_token %}
 
-    <label for="">Imagen de la consola:</label><br>
-    <input class="form-control" type="file" name="logo" id="logo" accept="image/*" placeholder="Sleciones una imagen"><br>
+              <div class="mb-3">
+                  <label for="nombre" class="form-label">Nombre de la Plataforma</label>
+                  <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese el nombre">
+              </div>
 
-    <label for="pdf">Archivo PDF de las capacidades:</label><br>
-    <input class="form-control" type="file" name="pdf" id="pdf" accept="application/pdf"><br>
-    </select><br><br>
+              <div class="mb-3">
+                  <label for="fabricante" class="form-label">Fabricante</label>
+                  <input type="text" class="form-control" name="fabricante" id="fabricante" placeholder="Ingrese el fabricante">
+              </div>
 
-    <button class="btn btn-success" type="submit">GUARDAR</button> <br><br>
-    <a class="btn btn-outline-danger" href="/">CANCELAR</a> <br><br>
+              <div class="mb-3">
+                  <label for="anio_lanzamiento" class="form-label">Año de Lanzamiento</label>
+                  <input type="number" class="form-control" name="anio_lanzamiento" id="anio_lanzamiento" min="1970" max="2025">
+              </div>
 
-</form>
+              <div class="mb-3">
+                  <label for="tipo" class="form-label">Tipo de Plataforma</label>
+                  <input type="text" class="form-control" name="tipo" id="tipo" placeholder="Ejemplo: Consola, PC, Móvil">
+              </div>
+
+              <div class="mb-3">
+                  <label for="region_disponible" class="form-label">Región Disponible</label>
+                  <input type="text" class="form-control" name="region_disponible" id="region_disponible" placeholder="Ejemplo: América, Europa, Global">
+              </div>
+
+              <div class="mb-3">
+                  <label for="logo" class="form-label">Imagen de la Plataforma</label>
+                  <input type="file" class="form-control" name="logo" id="logo" accept="image/*">
+              </div>
+
+              <div class="mb-3">
+                  <label for="pdf" class="form-label">Archivo PDF con Información</label>
+                  <input type="file" class="form-control" name="pdf" id="pdf" accept="application/pdf">
+              </div>
+
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                  <a href="{% url 'listarPlataformas' %}" class="btn btn-outline-danger me-md-2">Cancelar <i class="fa fa-times"></i></a>
+                  <button type="submit" class="btn btn-outline-success">Guardar Plataforma <i class="fa-solid fa-floppy-disk"></i></button>
+              </div>
+          </form>
+      </div>
+      <div class="col-md-3"></div>
+  </div>
 
 <script>
-    $("#frm_nuevoJuego").validate({
-        rules: {
-
-            "titulo": {
-                required: true,
-                minlength: 5, // maxlenth cunrta los caracteres 
-                maxlength: 15,
+    $("#formGuardarPlataforma").validate({
+        rules:{
+            "nombre":{
+                required:true,
+                minlength:3,
+                maxlength:100
             },
-
-            "genero": {
-                required: true
+            "fabricante":{
+                required:true,
+                minlength:3,
+                maxlength:50
             },
-
-            "desarollador": {
-                required: true
+            "anio_lanzamiento":{
+                required:true,
+                number:true,
+                min:1970,
+                max:2025
             },
-
-            "fecha_lanzamiento": {
-                required: true
+            "tipo":{
+                required:true,
+                minlength:3,
+                maxlength:50
             },
-
-            "clasificacion": {
-                required: true
-
-        },
-        messages: {
-            "titulo": {
-                required: "Campo Obligatorio",
-                minlength: "ingresse bien el nombre   ", 
-                maxlength: "Tampoco tan largo el nombre ",
+            "region_disponible":{
+                required:true,
+                minlength:3,
+                maxlength:100
             },
-            "genero": {
-                required: "Ingrese que genero es"
+            "logo":{
+                required:true,
+                extension:"jpg|jpeg|png|gif"
             },
-
-            "desarollador": {
-                required: "Ingrese quien creo el juego"
-            },
-
-            "fecha_lanzamiento": {
-                required: "Ingrese la fecha que se lanzo"
-            },
-
-            "clasificacion": {
-                required: "Ingrese sueldo",
-
+            "pdf":{
+                required:true,
+                extension:"pdf"
             }
-            
+        },
+        messages:{
+            "nombre":{
+                required:"El nombre de la plataforma es requerido.",
+                minlength:"Debe tener al menos 3 caracteres.",
+                maxlength:"No puede superar los 100 caracteres."
+            },
+            "fabricante":{
+                required:"El fabricante es requerido.",
+                minlength:"Debe tener al menos 3 caracteres.",
+                maxlength:"No puede superar los 50 caracteres."
+            },
+            "anio_lanzamiento":{
+                required:"El año de lanzamiento es requerido.",
+                number:"Debe ingresar un valor numérico.",
+                min:"El año mínimo permitido es 1970.",
+                max:"El año máximo permitido es 2025."
+            },
+            "tipo":{
+                required:"El tipo de plataforma es requerido.",
+                minlength:"Debe tener al menos 3 caracteres.",
+                maxlength:"No puede superar los 50 caracteres."
+            },
+            "region_disponible":{
+                required:"La región disponible es requerida.",
+                minlength:"Debe tener al menos 3 caracteres.",
+                maxlength:"No puede superar los 100 caracteres."
+            },
+            "logo":{
+                required:"Debe subir una imagen de la plataforma.",
+                extension:"Solo se permiten imágenes: jpg, jpeg, png, gif."
+            },
+            "pdf":{
+                required:"Debe subir el archivo en formato PDF.",
+                extension:"Solo se permite formato PDF."
+            }
         }
     });
-
-    
-        $("#logo").fileinput({
-            //language: "es",
-            allowedFileExtensions: ["png|jpg|jpeg"],
-            showCaption: false,
-            dropZoneEnabled: true,
-            showClose: false
-    });
-    </script>
-
-
 </script>
+
+<script>
+    $(document).ready(function() {
+        $("#logo").fileinput({
+            language: "es",
+            allowedFileExtensions: ["jpg", "jpeg", "png"],
+            showUpload: false, 
+            dropZoneEnabled: true, 
+            maxFileSize: 2000, 
+            showPreview: true, 
+            browseLabel: "Seleccionar imagen",
+            removeLabel: "Eliminar",
+            initialCaption: "Arrastra y suelta la imagen aquí",
+            showRemove: true, 
+            showZoom: true, 
+            showDrag: true 
+        });
+    });
+</script>
+
 {% endblock %}

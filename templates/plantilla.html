@@ -166,6 +166,27 @@
             </div>
             </div>
         </footer>
+        {% if messages %}
+        {% for message in messages %}
+        <script>
+            Swal.fire({
+            title: "CONFIRMACIÓN",
+            text: "{{ message }}",
+            icon: "success",
+            });
+        </script>
+        {% endfor %}
+    {% endif %}
+    <!-- Estilos internos -->
+    <style>
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+        .form-control.error {
+            border: 1px solid red;
+        }
+    </style>
         </div>
 
         <!-- Custom template | don't include it in your project! -->
